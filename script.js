@@ -1,64 +1,46 @@
-let map, popup, Popup;
+let map;
 
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
 function initMap() {
+    const uluru = { lat: -25.363, lng: 131.044 };
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+        zoom: 4,
+        center: uluru,
+    });
+    const contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+        '<div id="bodyContent">' +
+        "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+        "sandstone rock formation in the southern part of the " +
+        "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
+        "south west of the nearest large town, Alice Springs; 450&#160;km " +
+        "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
+        "features of the Uluru - Kata Tjuta National Park. Uluru is " +
+        "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
+        "Aboriginal people of the area. It has many springs, waterholes, " +
+        "rock caves and ancient paintings. Uluru is listed as a World " +
+        "Heritage Site.</p>" +
+        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+        "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+        "(last visited June 22, 2009).</p>" +
+        "</div>" +
+        "</div>";
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+    const marker = new google.maps.Marker({
+        position: uluru,
+        map,
+        title: "Uluru (Ayers Rock)",
+    });
+    marker.addListener("click", () => {
+        infowindow.open(map, marker);
     });
 
-    /**
-    * A customized popup on the map.
-    */
-    class Popup extends google.maps.OverlayView {
-        constructor(position, content) {
-            super();
-            this.position = position;
-            content.classList.add("popup-bubble");
-            // This zero-height div is positioned at the bottom of the bubble.
-            const bubbleAnchor = document.createElement("div");
-            bubbleAnchor.classList.add("popup-bubble-anchor");
-            bubbleAnchor.appendChild(content);
-            // This zero-height div is positioned at the bottom of the tip.
-            this.containerDiv = document.createElement("div");
-            this.containerDiv.classList.add("popup-container");
-            this.containerDiv.appendChild(bubbleAnchor);
-            // Optionally stop clicks, etc., from bubbling up to the map.
-            Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
-        }
-        /** Called when the popup is added to the map. */
-        onAdd() {
-            this.getPanes().floatPane.appendChild(this.containerDiv);
-        }
-        /** Called when the popup is removed from the map. */
-        onRemove() {
-            if (this.containerDiv.parentElement) {
-                this.containerDiv.parentElement.removeChild(this.containerDiv);
-            }
-        }
-        /** Called each frame when the popup needs to draw itself. */
-        draw() {
-            const divPosition = this.getProjection().fromLatLngToDivPixel(
-                this.position
-            );
-            // Hide the popup when it is far out of view.
-            const display =
-                Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000
-                    ? "block"
-                    : "none";
-
-            if (display === "block") {
-                this.containerDiv.style.left = divPosition.x + "px";
-                this.containerDiv.style.top = divPosition.y + "px";
-            }
-
-            if (this.containerDiv.style.display !== display) {
-                this.containerDiv.style.display = display;
-            }
-        }
-    }
-    popup = new Popup(
-        new google.maps.LatLng(-33.866, 151.196),
-        document.getElementById("content")
-    );
-    popup.setMap(map);
+    const infoWindowContent = "<div style=\"background-color:red; padding:10px;\"><h1>Room 305</h1><h2>Capcity 5/5 (FULL)</h2></div>";
+    infowindow.setContent(infoWindowContent)
 }
