@@ -14,7 +14,7 @@ function initMap() {
 
 
       return (
-        "floorplan" +
+        "floorplans/floorplan" +
         "-" +
         zoom +
         "-" +
