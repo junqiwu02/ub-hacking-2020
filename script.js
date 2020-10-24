@@ -1,13 +1,40 @@
-let map;
 
 // This example displays a marker at the center of Australia.
 // When the user clicks the marker, an info window opens.
 function initMap() {
-    const uluru = { lat: -25.363, lng: 131.044 };
-    map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
-        center: uluru,
-    });
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 0, lng: 0 },
+    zoom: 1,
+    streetViewControl: false,
+    mapTypeControlOptions: {
+      mapTypeIds: ["floor"],
+    },
+  });
+  const floorMapType = new google.maps.ImageMapType({
+    getTileUrl: function (coord, zoom) {
+      console.log(coord + " " + zoom);
+
+
+      return (
+        "floorplans/floorplan" +
+        "-" +
+        zoom +
+        "-" +
+        coord.y +
+        "-" +
+        coord.x +
+        ".jpg"
+      );
+    },
+    tileSize: new google.maps.Size(512, 512),
+    maxZoom: 2,
+    minZoom: 1,
+    radius: 1392,
+    name: "Floor",
+  });
+  map.mapTypes.set("floor", floorMapType);
+  map.setMapTypeId("floor");
+
     const contentString =
         '<div id="content">' +
         '<div id="siteNotice">' +
@@ -33,7 +60,7 @@ function initMap() {
         content: contentString,
     });
     const marker = new google.maps.Marker({
-        position: uluru,
+        position: { lat: 0, lng: 0 },
         map,
         title: "Uluru (Ayers Rock)",
     });
