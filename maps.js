@@ -2,38 +2,39 @@
 // This example displays a marker at the center of Australia.
 // When the user clicks the marker, an info window opens.
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 0, lng: 0 },
-    zoom: 1,
-    streetViewControl: false,
-    mapTypeControlOptions: {
-      mapTypeIds: ["floor"],
-    },
-  });
-  const floorMapType = new google.maps.ImageMapType({
-    getTileUrl: function (coord, zoom) {
-      console.log(coord + " " + zoom);
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 1,
+        streetViewControl: false,
+        mapTypeControlOptions: {
+            mapTypeIds: ["floor"],
+        },
+    });
+    const floorMapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            if(!inBounds(zoom, coord.x, coord.y)) {
+                return "";
+            }
 
-
-      return (
-        "floorplans/floorplan" +
-        "-" +
-        zoom +
-        "-" +
-        coord.y +
-        "-" +
-        coord.x +
-        ".jpg"
-      );
-    },
-    tileSize: new google.maps.Size(512, 512),
-    maxZoom: 2,
-    minZoom: 1,
-    radius: 1392,
-    name: "Floor",
-  });
-  map.mapTypes.set("floor", floorMapType);
-  map.setMapTypeId("floor");
+            return (
+                "floorplans/floorplan" +
+                "-" +
+                zoom +
+                "-" +
+                coord.y +
+                "-" +
+                coord.x +
+                ".jpg"
+            );
+        },
+        tileSize: new google.maps.Size(512, 512),
+        maxZoom: 2,
+        minZoom: 1,
+        radius: 1392,
+        name: "Floor",
+    });
+    map.mapTypes.set("floor", floorMapType);
+    map.setMapTypeId("floor");
 
     const contentString =
         '<div id="content">' +
@@ -70,4 +71,9 @@ function initMap() {
 
     const infoWindowContent = "<div style=\"background-color:red; padding:10px;\"><h1>Room 305</h1><h2>Capcity 5/5 (FULL)</h2></div>";
     infowindow.setContent(infoWindowContent)
+}
+
+function inBounds(zoom, x, y) {
+    bounds = 1 << (zoom - 1);
+    return 0 <= x && x < bounds && 0 <= y && y < bounds;
 }
