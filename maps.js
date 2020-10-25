@@ -63,7 +63,6 @@ function initMap() {
         map,
         title: "Room 103",
     });
-
     const marker111 = new google.maps.Marker({
         position: { lat: 20, lng: -160 },
         map,
