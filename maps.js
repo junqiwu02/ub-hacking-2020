@@ -24,7 +24,7 @@ function initMap() {
         maxZoom: 3,
         minZoom: 2,
         radius: 1000,
-        name: "Floor 1",
+        name: "Seneca One: Floor 1",
     });
     const floor2MapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
@@ -38,7 +38,7 @@ function initMap() {
         maxZoom: 3,
         minZoom: 2,
         radius: 1000,
-        name: "Floor 2",
+        name: "Seneca One: Floor 2",
     });
 
 
@@ -90,6 +90,20 @@ function initMap() {
     marker112.addListener("click", () => openWindow(infowindow, marker112, 1, 3));
     marker113.addListener("click", () => openWindow(infowindow, marker113, 2, 3));
 
+    let floor1Markers = [marker101, marker102, marker103, marker111, marker112, marker113];
+
+    map.addListener("maptypeid_changed", () => {
+        const floor = map.getMapTypeId()
+        if(floor == "floor1") {
+            floor1Markers.forEach(m => {
+                m.setMap(map);
+            });
+        } else {
+            floor1Markers.forEach(m => {
+                m.setMap(null);
+            });
+        }
+    });
 }
 
 function inBounds(zoom, x, y) {
