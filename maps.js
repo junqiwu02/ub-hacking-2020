@@ -1,7 +1,6 @@
 
 let map;
-let floor1Rooms = [];
-let floor2Rooms = [];
+let rooms = [];
 // This example displays a marker at the center of Australia.
 // When the user clicks the marker, an info window opens.
 function initMap() {
@@ -58,14 +57,14 @@ function initMap() {
 
     const floor1Markers = [marker101, marker102, marker103, marker111, marker112, marker113];
     floor1Markers.forEach(m => {
-        const room = {
+        const r = {
             name: m.title,
             capacity: 0,
             max: 5,
             marker: m
         };
-        floor1Rooms.push(room);
-        m.addListener("click", () => openWindow(infowindow, room));
+        rooms.push(r);
+        m.addListener("click", () => openWindow(infowindow, r));
     });
 
     map.addListener("maptypeid_changed", () => {
