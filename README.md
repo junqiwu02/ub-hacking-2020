@@ -4,6 +4,8 @@
 <br>
 This is part of my team's submission to the UB Hacking 2020 hackathon.
 <br>
+### View our devpost submition at https://devpost.com/software/enterface
+<br><br>
 The other component of EnterFace, the iOS app can be found at https://github.com/Kwang8/EnterFace
 
 ### What is it
