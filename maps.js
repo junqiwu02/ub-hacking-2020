@@ -69,8 +69,8 @@ function initMap() {
         infowindow.open(map, marker);
     });
 
-    const infoWindowContent = "<div style=\"background-color:red; padding:10px;\"><h1>Room 305</h1><h2>Capcity 5/5 (FULL)</h2></div>";
-    infowindow.setContent(infoWindowContent)
+    
+
 }
 
 function inBounds(zoom, x, y) {
