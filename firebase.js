@@ -2,6 +2,16 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 
-firebase.database().ref('123456').once('value').then(function(snapshot) {
-    console.log(snapshot);
-});
+function update() {
+
+  firebase.database().ref().once('value').then(function(snapshot) {
+    for (room in snapshot.val()) {
+      console.log(snapshot.val())
+    }
+   });
+
+
+   /* setTimeout(update,10000) */
+}
+
+update();
