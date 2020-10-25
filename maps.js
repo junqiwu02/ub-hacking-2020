@@ -8,78 +8,87 @@ function initMap() {
         zoom: 2,
         streetViewControl: false,
         mapTypeControlOptions: {
-            mapTypeIds: ["floor"],
+            mapTypeIds: ["floor1", "floor2"],
         },
     });
-    const floorMapType = new google.maps.ImageMapType({
+
+    const floor1MapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             if (!inBounds(zoom, coord.x, coord.y)) {
                 return "";
             }
 
-            return (
-                "floorplans/floorplan" +
-                "-" +
-                zoom +
-                "-" +
-                coord.y +
-                "-" +
-                coord.x +
-                ".jpg"
-            );
+            return `floor1plans/${zoom}-${coord.y}-${coord.x}.jpg`;
         },
         tileSize: new google.maps.Size(512, 512),
         maxZoom: 3,
         minZoom: 2,
         radius: 1000,
-        name: "Floor",
+        name: "Floor 1",
     });
-    map.mapTypes.set("floor", floorMapType);
-    map.setMapTypeId("floor");
+    const floor2MapType = new google.maps.ImageMapType({
+        getTileUrl: function (coord, zoom) {
+            if (!inBounds(zoom, coord.x, coord.y)) {
+                return "";
+            }
+
+            return `floor2plans/${zoom}-${coord.y}-${coord.x}.jpg`;
+        },
+        tileSize: new google.maps.Size(512, 512),
+        maxZoom: 3,
+        minZoom: 2,
+        radius: 1000,
+        name: "Floor 2",
+    });
+
+
+    map.mapTypes.set("floor1", floor1MapType);
+    map.mapTypes.set("floor2", floor2MapType);
+    map.setMapTypeId("floor1");
 
     const infowindow = new google.maps.InfoWindow();
 
-    const marker301 = new google.maps.Marker({
+    const marker101 = new google.maps.Marker({
         position: { lat: 79, lng: -160 },
         map,
-        title: "Room 301",
+        title: "Room 101",
     });
-    const marker302 = new google.maps.Marker({
+    const marker102 = new google.maps.Marker({
         position: { lat: 79, lng: -115 },
         map,
-        title: "Room 302",
+        title: "Room 102",
     });
-    const marker303 = new google.maps.Marker({
+    const marker103 = new google.maps.Marker({
         position: { lat: 79, lng: -80 },
         map,
-        title: "Room 303",
+        title: "Room 103",
     });
 
-    const marker311 = new google.maps.Marker({
+    const marker111 = new google.maps.Marker({
         position: { lat: 20, lng: -160 },
         map,
-        title: "Room 311",
+        title: "Room 111",
     });
-    const marker312 = new google.maps.Marker({
+    const marker112 = new google.maps.Marker({
         position: { lat: 20, lng: -115 },
         map,
-        title: "Room 312",
+        title: "Room 112",
     });
-    const marker313 = new google.maps.Marker({
+    const marker113 = new google.maps.Marker({
         position: { lat: 20, lng: -80 },
         map,
-        title: "Room 313",
+        title: "Room 113",
     });
 
 
 
-    marker301.addListener("click", () => openWindow(infowindow, marker301, 0, 5));
-    marker302.addListener("click", () => openWindow(infowindow, marker302, 1, 5));
-    marker303.addListener("click", () => openWindow(infowindow, marker303, 5, 5));
+    marker101.addListener("click", () => openWindow(infowindow, marker101, 0, 5));
+    marker102.addListener("click", () => openWindow(infowindow, marker102, 1, 5));
+    marker103.addListener("click", () => openWindow(infowindow, marker103, 5, 5));
 
-    marker311.addListener("click", () => openWindow(infowindow, marker311, 3, 3));
-    marker312.addListener("click", () => openWindow(infowindow, marker312, 1, 3));
-    marker313.addListener("click", () => openWindow(infowindow, marker313, 2, 3));
+    marker111.addListener("click", () => openWindow(infowindow, marker111, 3, 3));
+    marker112.addListener("click", () => openWindow(infowindow, marker112, 1, 3));
+    marker113.addListener("click", () => openWindow(infowindow, marker113, 2, 3));
 
 }
 
