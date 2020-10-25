@@ -1,5 +1,7 @@
 # ENTERFACE
 
+![logo](https://raw.githubusercontent.com/junqiwu02/ub-hacking-2020/master/images/logo.jpg)
+<br>
 This is part of my team's submission to the UB Hacking 2020 hackathon.
 <br>
 The other component of EnterFace, the iOS app can be found at https://github.com/Kwang8/EnterFace
