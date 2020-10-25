@@ -1,9 +1,7 @@
-
 let map;
 let infowindow;
 let rooms = [];
-// This example displays a marker at the center of Australia.
-// When the user clicks the marker, an info window opens.
+
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 65, lng: -90 },
@@ -57,8 +55,10 @@ function initMap() {
     const marker113 = new google.maps.Marker({ position: { lat: 20, lng: -80 }, map, title: "Room 113" });
 
     const floor1Markers = [marker101, marker102, marker103, marker111, marker112, marker113];
+    // Add markers to room array, with specific image
     floor1Markers.forEach(m => setupRoom(m, m.title.includes("3") ? "door2.jpg" : "door1.jpg"));
 
+    // Add the floor 1 gym separate
     const markerGym = new google.maps.Marker({ position: { lat: 60, lng: -115 }, map, title: "Gym" });
     floor1Markers.push(markerGym);
     setupRoom(markerGym, "gym.jpg");
@@ -76,6 +76,7 @@ function initMap() {
     floor2Markers.push(markerAuditorium);
     setupRoom(markerAuditorium, "auditorium.jpg");
 
+    // Show markers for that floor when the floor changes
     map.addListener("maptypeid_changed", () => {
         if (map.getMapTypeId() == "floor1") {
             floor1Markers.forEach(m => {
@@ -96,11 +97,14 @@ function initMap() {
     });
 }
 
+// Check that the x and y values are in bounds of our tiles for each zoom
 function inBounds(zoom, x, y) {
+    // zoom 2: x=0, y=0, zoom 3: x<=1, y<=1
     bounds = 1 << (zoom - 2);
     return 0 <= x && x < bounds && 0 <= y && y < bounds;
 }
 
+// Set the content of the infowindow and open it above the clicked marker
 function openWindow(room) {
     let bkgcolor = room.capacity < room.max ? "white" : "tomato";
     let full = room.capacity < room.max ? "" : "(FULL)";
@@ -109,6 +113,7 @@ function openWindow(room) {
     infowindow.open(map, room.marker);
 }
 
+// Add a room object to the room array; this array will be changed by the firebase script
 function setupRoom(marker, imageUrl) {
     const r = {
         name: marker.title,
