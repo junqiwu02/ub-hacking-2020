@@ -5,13 +5,21 @@ firebase.analytics();
 function update() {
 
   firebase.database().ref().once('value').then(function(snapshot) {
-    for (room in snapshot.val()) {
-      console.log(snapshot.val())
-    }
+    arrayDatabase = Object.entries(snapshot.val());
+     for (index in rooms) {
+       for (indexOuter in arrayDatabase) {
+         if (rooms[index].name == arrayDatabase[indexOuter][1].name) {
+           rooms[index].capacity = arrayDatabase[indexOuter][1].capacity;
+           rooms[index].max = arrayDatabase[indexOuter][1].max;
+         }
+        }
+      }
+
+    // test: console.log(snapshot.val())
    });
+   //test console.log(rooms)
 
-
-   /* setTimeout(update,10000) */
+   setTimeout(update,5000)
 }
 
 update();
