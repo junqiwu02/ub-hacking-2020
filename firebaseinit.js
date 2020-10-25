@@ -12,9 +12,9 @@ function update() {
            rooms[index].capacity = arrayDatabase[indexOuter][1].capacity;
            rooms[index].max = arrayDatabase[indexOuter][1].max;
            if (rooms[index].capacity < rooms[index].max) {
-             rooms[index].marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+             rooms[index].marker.setIcon('images/green.png')
            } else {
-             rooms[index].marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+             rooms[index].marker.setIcon('images/red.png')
 
            }
 
