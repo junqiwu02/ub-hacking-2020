@@ -2,7 +2,7 @@
 
 ![logo](https://raw.githubusercontent.com/junqiwu02/ub-hacking-2020/master/images/logo.jpg)
 <br>
-This is part of my team's submission to the UB Hacking 2020 hackathon.
+This is part of my team's submission to the UB Hacking 2020 hackathon. We received the "Best use of Google Cloud" and the "M&T Bank Best Hack to build a "Smart" Tech Hub Ecosystem 1st place" awards!
 <br>
 ### View our devpost submition at https://devpost.com/software/enterface
 <br><br>
